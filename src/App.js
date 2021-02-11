@@ -21,28 +21,29 @@ const App = () => {
   const [users, setUsers] = useState(data); //se não tiver ninguém no lugar de data vem um array vazio
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [pokemons, setPokemons] = useState([]);
+
+  useEffect(() => {
+    fetch('https://pokeapi.co/api/v2/type/5')
+    .then(result => result.json())
+    .then(result => setPokemons(result.pokemon))
+  }, []);
 
   // useEffect(() => {
-  //   fetch('https://pokeapi.co/api/v2/type/5')
-  //   .then(result => result.json())
-  //   .then(result => setPokemons(result.pokemon))
-  // })
+  //   console.log('description alterado')
+  // }, [description]);
 
-  useEffect(() => {
-    console.log('description alterado')
-  }, [description]);
+  // useEffect(() => {
+  //   console.log('name alterado')
+  // }, [name]);
 
-  useEffect(() => {
-    console.log('name alterado')
-  }, [name]);
+  // useEffect(() => {
+  //   console.log('users alterado')
+  // }, [users]);
 
-  useEffect(() => {
-    console.log('users alterado')
-  }, [users]);
-
-  useEffect(() => {
-    console.log('algum estado foi alterado')
-  });
+  // useEffect(() => {
+  //   console.log('algum estado foi alterado')
+  // });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,7 +54,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {
+      {/* {
         users.map((user, index) => {
           return (
           <User 
@@ -69,7 +70,14 @@ const App = () => {
         <input type='text' value={name} onChange={(event) => {setName(event.target.value)}} />
         <input type='text' value={description} onChange={(event) => {setDescription(event.target.value)}} />
         <button type='submit' value='' onClick={(event) => handleSubmit(event)}> Criar novo usuário </button>
-      </form>
+      </form> */}
+      {
+        pokemons.map((item, index) => {
+          return (
+            <p key={index}>{item.pokemon.name}</p>
+          )
+        })
+      }
     </div>
   );  
 }
